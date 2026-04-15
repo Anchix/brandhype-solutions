@@ -1,0 +1,49 @@
+type ContactSubmission = 
+ record {
+   email: text;
+   id: nat;
+   message: text;
+   name: text;
+   phone: text;
+   "service": text;
+   submittedAt: int;
+ };
+type BlogPostInput = 
+ record {
+   author: text;
+   category: text;
+   content: text;
+   excerpt: text;
+   featuredImageUrl: text;
+   publishDate: text;
+   readTime: text;
+   status: text;
+   tags: vec text;
+   title: text;
+ };
+type BlogPost = 
+ record {
+   author: text;
+   category: text;
+   content: text;
+   createdAt: int;
+   excerpt: text;
+   featuredImageUrl: text;
+   id: nat;
+   publishDate: text;
+   readTime: text;
+   status: text;
+   tags: vec text;
+   title: text;
+   updatedAt: int;
+ };
+service : {
+  createBlogPost: (input: BlogPostInput) -> (nat);
+  deleteBlogPost: (id: nat) -> (bool);
+  getBlogPosts: () -> (vec BlogPost) query;
+  getContactSubmissions: () -> (vec ContactSubmission) query;
+  getPublishedBlogPosts: () -> (vec BlogPost) query;
+  submitContactForm: (name: text, email: text, phone: text, "service": 
+   text, message: text) -> (nat);
+  updateBlogPost: (id: nat, input: BlogPostInput) -> (bool);
+}

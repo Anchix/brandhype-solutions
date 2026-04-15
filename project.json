@@ -1,0 +1,26 @@
+{
+  "overview": "Premium 3D marketing agency website for BrandHype Solutions — a full-service digital marketing agency based in Delhi, India. Features an immersive Three.js particle hero, floating 3D service cards, animated stats counters, client logo marquee showcasing Lenskart, Swiggy, Unstop and more, and a contact form — all on a bold dark theme with electric blue, neon purple, and gold accents.",
+  "features": [
+    "Immersive Three.js animated hero with particle field and parallax",
+    "3D floating service cards with hover effects (12 services)",
+    "Client logo marquee — Lenskart, Unstop, Swiggy, Arata, Solura Cosmetic, Snitch",
+    "Animated stats counters (campaigns, reach, ROI)",
+    "Agency about & mission section with core values",
+    "5-step process timeline with staggered animations",
+    "Contact form with service interest dropdown",
+    "Fixed navigation with smooth scroll anchors and mobile hamburger menu",
+    "Dark theme with electric blue, neon purple, and gold accents",
+    "Mobile responsive design"
+  ],
+  "category": "marketing",
+  "tags": [
+    "marketing-agency",
+    "3d-website",
+    "three-js",
+    "dark-theme",
+    "premium-design",
+    "digital-marketing",
+    "brandhype-solutions"
+  ],
+  "last_updated": "2026-04-14T20:54:14.722Z"
+}

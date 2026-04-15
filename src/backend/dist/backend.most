@@ -1,0 +1,55 @@
+// Version: 1.0.0
+type BlogPost__496695373 =
+  {
+    author : Text;
+    category : Text;
+    content : Text;
+    createdAt : Int;
+    excerpt : Text;
+    featuredImageUrl : Text;
+    id : Nat;
+    publishDate : Text;
+    readTime : Text;
+    status : Text;
+    tags : [Text];
+    title : Text;
+    updatedAt : Int
+  };
+type ContactSubmission__657808989 =
+  {
+    email : Text;
+    id : Nat;
+    message : Text;
+    name : Text;
+    phone : Text;
+    service : Text;
+    submittedAt : Int
+  };
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+actor {
+  stable blogCounter :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable contactCounter :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?Nat]];
+      var elementIndex : Nat__490723111
+    };
+  stable posts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?BlogPost__496695373]];
+      var elementIndex : Nat__490723111
+    };
+  stable submissions :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?ContactSubmission__657808989]];
+      var elementIndex : Nat__490723111
+    }
+};
