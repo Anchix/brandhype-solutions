@@ -5,7 +5,6 @@ import {
   Mail,
   TrendingUp,
   User,
-  X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
@@ -36,6 +35,23 @@ interface BlogPost {
   category: string;
   featuredImage?: string;
   featured?: boolean;
+  content?: string;
+}
+
+// ─── Slug helper ─────────────────────────────────────────────────────────────
+
+export function toSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .trim();
+}
+
+export function navigateTo(path: string) {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new Event("routechange"));
 }
 
 // ─── Category config ──────────────────────────────────────────────────────────
@@ -104,7 +120,6 @@ function getCatConfig(cat: string) {
   return CATEGORY_CONFIG[cat] ?? CATEGORY_CONFIG.General;
 }
 
-// Fallback gradient backgrounds per category index
 const FALLBACK_GRADIENTS = [
   "linear-gradient(135deg, #0066FF22, #9B30FF44)",
   "linear-gradient(135deg, #9B30FF22, #FFB80044)",
@@ -122,6 +137,8 @@ const SAMPLE_POSTS: BlogPost[] = [
     title: "5 Ways AI is Revolutionizing Digital Marketing in 2025",
     excerpt:
       "Artificial intelligence is no longer a buzzword — it's the backbone of every top-performing campaign. From predictive audience targeting to real-time creative optimization, discover how AI-powered strategies are delivering 3x ROI for D2C brands.",
+    content:
+      "Artificial intelligence has fundamentally transformed how brands connect with customers. From predictive audience segmentation to dynamic creative optimization, AI now sits at the center of every high-performance campaign.\n\n**1. Predictive Audience Targeting**\nAI models analyze behavioral signals — browsing history, purchase intent, time-on-page — to identify your highest-value prospects before they even know they need you. BrandHype uses custom lookalike models that outperform native ad platform audiences by 2.4x on average.\n\n**2. Real-Time Creative Optimization**\nStop guessing which creative wins. AI-driven DCO (Dynamic Creative Optimization) tests thousands of ad variations simultaneously, reallocating budget to winners within hours, not weeks. Our clients see an average 47% reduction in CPL using this approach.\n\n**3. Conversational AI for Lead Qualification**\nAI chatbots trained on brand tone and FAQs engage, qualify, and even book demos for your sales team — 24/7, without human intervention. One D2C skincare client added 340 qualified leads/month through this alone.\n\n**4. Sentiment Analysis for Brand Monitoring**\nKnow what your audience really thinks in real time. AI-powered sentiment tools scan social, reviews, and forums so you can respond to PR risks before they escalate — or double down on messaging that resonates.\n\n**5. Automated Campaign Reporting**\nEliminate 10+ hours of weekly reporting. AI-generated dashboards surface the KPIs that actually matter, with anomaly detection that flags drops in performance before they cost you budget.",
     author: "Aryan Mehta",
     tags: ["AI Marketing", "Performance", "Automation"],
     readTime: "7 min read",
@@ -134,6 +151,8 @@ const SAMPLE_POSTS: BlogPost[] = [
     title: "How Influencer Marketing Drives 10x ROI for D2C Brands",
     excerpt:
       "The right creator partnership can 10x your brand awareness overnight. We break down the exact framework BrandHype uses to identify micro and macro influencers that convert followers into loyal customers.",
+    content:
+      "Influencer marketing has evolved far beyond brand deals and unboxing videos. The brands winning in 2025 are building creator ecosystems — and the ROI data is impossible to ignore.\n\n**The Framework We Use**\n\nStep 1 — Audience Alignment Scoring: We don't just look at follower counts. We analyze audience overlap, engagement rate authenticity (weeding out fake followers), content-niche fit, and past brand performance metrics.\n\nStep 2 — Campaign Architecture: Micro-influencers (10k–100k) drive conversion. Macro-influencers drive awareness. We stack both layers strategically, allocating 60% of budget to micro and 40% to macro for maximum funnel coverage.\n\nStep 3 — Brief + Creative Freedom Balance: Over-scripted content kills engagement. We provide clear brand guidelines, key messages, and hard stops — then let creators bring their authentic voice. This hybrid approach increases engagement 3x versus fully scripted content.\n\nStep 4 — Tracking + Attribution: Every creator gets a unique UTM link and discount code. We track last-touch, first-touch, and assisted conversions to get a full picture of actual ROI.\n\n**Results from a recent D2C campaign:**\n- 48 creators activated across 3 tiers\n- 2.8M total reach in 30 days\n- 4.2% average engagement rate\n- ₹8.70 ROAS (for every ₹1 spent)",
     author: "Priya Sharma",
     tags: ["Influencer", "D2C", "ROI"],
     readTime: "9 min read",
@@ -144,7 +163,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 3,
     title: "Performance Marketing Secrets: From Clicks to Conversions",
     excerpt:
-      "Clicks are cheap. Conversions are everything. Our performance team reveals the exact funnel architecture, ad creative formulas, and attribution models that transformed campaigns — turning ₹1 into ₹8 in tracked revenue.",
+      "Clicks are cheap. Conversions are everything. Our performance team reveals the exact funnel architecture, ad creative formulas, and attribution models that turned ₹1 into ₹8 in tracked revenue.",
+    content:
+      "Performance marketing lives and dies by one number: ROAS. Here's the exact playbook our team uses to consistently hit 6–10x returns for D2C and SaaS clients.\n\n**The Funnel Architecture**\n\nTop of Funnel (Awareness): Short-form video ads (6–15 seconds) focused on a single problem statement. No selling. Pure pattern interrupt. Target: cold audiences via interest and lookalike stacking.\n\nMiddle of Funnel (Consideration): Retargeting with social proof — UGC, review compilations, founder story content. Goal: build trust with warm audiences who've visited your site or engaged with TOFU ads.\n\nBottom of Funnel (Conversion): Hard offer ads. Limited-time discount, free trial, free shipping. Single CTA. Urgency-driven copy. Target: cart abandoners, past visitors, high-intent segments.\n\n**Creative Formula That Works**\nHook (0–3 seconds) → Problem Agitation (3–8 seconds) → Solution Reveal (8–15 seconds) → Social Proof Flash (15–20 seconds) → CTA (final frame)\n\n**Attribution Model**\nWe use a 1-day click / 1-day view attribution window for TOFU, and 7-day click for retargeting. Triple-validated against GA4 and Shopify revenue data to eliminate platform inflation.\n\n**Benchmark Results (Last 90 days across portfolio):**\n- Average ROAS: 7.4x\n- Average CPL: ₹142\n- Average CTR (cold): 2.3%\n- Average conversion rate: 3.8%",
     author: "Rahul Desai",
     tags: ["Performance", "PPC", "Conversions"],
     readTime: "11 min read",
@@ -155,7 +176,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 4,
     title: "Brand Identity in the Digital Age: Beyond the Logo",
     excerpt:
-      "Great branding is more than a color palette. It's the entire sensory experience your audience has with your brand — how cohesive brand identity becomes your most powerful growth lever in a crowded market.",
+      "Great branding is more than a color palette. It's the entire sensory experience your audience has with your brand — learn how cohesive brand identity becomes your most powerful growth lever.",
+    content:
+      "Most startups think branding is a logo and a color palette. The brands that dominate markets understand branding is the sum of every touchpoint — visual, verbal, experiential, and emotional.\n\n**The 5 Pillars of Digital-First Brand Identity**\n\n1. Visual System — Logo, color palette, typography, iconography, motion design. Everything must be consistent and scalable from a social media avatar to a 4K billboard.\n\n2. Verbal Identity — Your brand voice, tone guidelines, messaging hierarchy, and taglines. How your brand sounds is as important as how it looks.\n\n3. Content Identity — The specific format, cadence, and style of content you produce. Brands like Zomato and Swiggy have content identities so strong that followers can identify a post without seeing the logo.\n\n4. Experience Design — The UX of your website, app, packaging, and in-store experience. Every friction point is a brand failure.\n\n5. Community Identity — The kind of people who publicly associate with your brand. Your community becomes your most powerful brand asset.\n\n**The BrandHype Brand Audit Process**\nBefore designing anything, we conduct a 72-point brand audit covering competitive positioning, audience perception, and visual/verbal consistency. This is what separates strategic branding from aesthetic exercises.",
     author: "Neha Kapoor",
     tags: ["Branding", "Strategy", "Identity"],
     readTime: "6 min read",
@@ -166,7 +189,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 5,
     title: "SEO in 2025: How to Dominate Search with AI-Assisted Content",
     excerpt:
-      "Google's algorithm updates have fundamentally changed what it takes to rank. Discover our hybrid approach combining AI-driven content planning with expert human storytelling — ranking 400+ commercial keywords in 90 days.",
+      "Google's algorithm updates have fundamentally changed what it takes to rank. Discover our hybrid approach combining AI-driven content planning with expert human storytelling — ranking 400+ keywords in 90 days.",
+    content:
+      "SEO in 2025 is not about gaming algorithms. It's about genuinely being the best answer to a searcher's query. Here's how BrandHype builds content machines that rank and convert.\n\n**The AI + Human Hybrid Model**\n\nStep 1 — Keyword Clustering with AI: We use semantic clustering to group 1,000+ keywords into topic pillars. AI maps search intent and competition gaps in minutes — work that used to take weeks.\n\nStep 2 — Content Briefs Built on SERPs: Every piece of content starts with a detailed brief built from analyzing the top 10 ranking pages: word count, headers, schema markup, missing angles, semantic keywords.\n\nStep 3 — Human Expert Writing: AI drafts are fact-checked and rewritten by subject matter experts. Google E-E-A-T signals require real expertise and experience — no amount of AI-polishing replaces this.\n\nStep 4 — Technical SEO Foundation: Core Web Vitals optimization, schema markup, internal linking structure, and crawl budget management. Content without technical SEO is like building on sand.\n\nStep 5 — Link Velocity + Authority Building: Targeted outreach to relevant publications, brand mention reclamation, and digital PR campaigns that earn links naturally.\n\n**90-Day Results from a recent client campaign:**\n- 412 keywords ranked (0 to position 1–10)\n- Organic traffic: +284%\n- Domain Rating: 22 → 41\n- Organic revenue contribution: 38% of total",
     author: "Vikram Singh",
     tags: ["SEO", "Content", "AI"],
     readTime: "8 min read",
@@ -177,7 +202,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 6,
     title: "The Scaling Blueprint: Taking a ₹1Cr Brand to ₹10Cr",
     excerpt:
-      "Growth doesn't happen by accident. This post unpacks the 5-stage scaling framework BrandHype uses — covering market positioning, growth channel stacking, retention marketing, and the metrics that separate scaling brands.",
+      "Growth doesn't happen by accident. This post unpacks the 5-stage scaling framework BrandHype uses — covering market positioning, channel stacking, retention, and the metrics that separate scaling brands.",
+    content:
+      "Scaling from ₹1Cr to ₹10Cr annual revenue is not a straight line. It's a series of inflection points, each requiring a different strategy. Here's the exact 5-stage framework we've used across 20+ D2C brands.\n\n**Stage 1 — Product-Market Fit Validation (₹0–25L)**\nBefore scaling ad spend, prove the product converts organically. Run micro-campaigns to identify your best-performing audience segments and offers. If your organic conversion rate is below 1.5%, more ad spend will not save you.\n\n**Stage 2 — Channel Discovery (₹25L–1Cr)**\nTest 4–6 acquisition channels simultaneously with capped budgets. Identify the 1–2 channels with the best CAC and highest retention overlap. Kill underperformers ruthlessly.\n\n**Stage 3 — Retention + LTV Architecture (₹1Cr–3Cr)**\nAcquisition is expensive. Retention is profitable. Build email/WhatsApp flows for onboarding, win-back, upsell, and referral. Every 10% improvement in LTV allows you to outbid competitors on CAC.\n\n**Stage 4 — Channel Dominance (₹3Cr–7Cr)**\nDouble down on your proven channel. Build creative velocity (10+ new ad variants per week), aggressive audience expansion, and lookalike scaling.\n\n**Stage 5 — Multi-Channel Compounding (₹7Cr–10Cr+)**\nStack channels so they amplify each other. SEO + paid creates compound traffic. Influencer + retargeting creates trust loops. The whole becomes greater than the sum of parts.",
     author: "Aryan Mehta",
     tags: ["Growth", "Strategy", "Scale"],
     readTime: "12 min read",
@@ -188,7 +215,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 7,
     title: "Social Media Mastery: Building Communities That Convert",
     excerpt:
-      "Social media isn't just about vanity metrics anymore. Learn how BrandHype builds engaged communities for clients through storytelling frameworks, engagement loops, and platform-native content strategies that drive real revenue.",
+      "Social media isn't just about vanity metrics anymore. Learn how BrandHype builds engaged communities through storytelling frameworks, engagement loops, and platform-native content strategies.",
+    content:
+      "The brands winning on social media in 2025 are not just broadcasting content — they're building communities. The difference between followers and community is the difference between an audience and an asset.\n\n**The Community-First Content Framework**\n\nPillar 1 — Educational Content (40%): Teach your audience something useful and specific to your niche. This builds authority and generates saves/shares — the highest-value engagement signals.\n\nPillar 2 — Entertaining Content (30%): Trend-native, format-native content that fits the platform. For Instagram: Reels. For LinkedIn: Story-driven long-form. For Twitter/X: Strong opinions.\n\nPillar 3 — Social Proof Content (20%): Customer stories, results, UGC reposts, before/after transformations. This builds trust with lurkers who are considering buying.\n\nPillar 4 — Direct Offer Content (10%): Clear, unambiguous sales content. When your other pillars are strong, your audience tolerates and responds to direct selling.\n\n**The Engagement Loop**\nCreate → Respond to every comment for the first 60 minutes → Repost top community content → Create content based on community questions → Repeat.\n\n**Metrics That Actually Matter:**\n- Save rate (benchmark: >3% of reach)\n- DM-to-sale conversion rate\n- Comment sentiment ratio\n- Follower-to-website conversion rate",
     author: "Priya Sharma",
     tags: ["Social Media", "Community", "Content"],
     readTime: "7 min read",
@@ -199,7 +228,9 @@ const SAMPLE_POSTS: BlogPost[] = [
     id: 8,
     title: "Brand Strategy That Sticks: 7 Principles for Market Leaders",
     excerpt:
-      "The difference between brands that dominate and those that disappear comes down to strategy. We break down 7 core brand strategy principles our agency applies to every client engagement from day one.",
+      "The difference between brands that dominate and those that disappear comes down to strategy. We break down 7 core brand strategy principles our agency applies from day one.",
+    content:
+      "Brand strategy is the foundation everything else is built on. When the foundation is weak, marketing spend leaks. When it's strong, every dollar compounds. Here are the 7 principles we apply to every client engagement.\n\n**Principle 1 — Category Design Over Category Competition**\nDon't fight for market share in an existing category. Design a new one where you can be first. Oatly didn't compete with milk — they created the oat milk category.\n\n**Principle 2 — Enemy Framing**\nThe strongest brands define what they're against. Apple vs. IBM. Dollar Shave Club vs. overpriced razors. Your enemy isn't a competitor — it's the status quo your customers hate.\n\n**Principle 3 — Point-of-View Over Features**\nFeature wars are unwinnable. Point-of-view creates loyalty. What does your brand genuinely believe that others won't say?\n\n**Principle 4 — Consistent Visual + Verbal Cadence**\nBrands are built through repetition. The 100th time someone sees your content should feel as distinctive as the first.\n\n**Principle 5 — Audience Segmentation by Psychographics, Not Demographics**\nAge and income don't predict brand loyalty. Values, aspirations, and worldview do.\n\n**Principle 6 — Distribution as Brand Strategy**\nWhere you sell and how your product reaches customers is part of your brand. DTC brands that only sell through their own site build fundamentally different brand equity than those relying on Amazon.\n\n**Principle 7 — Brand Equity Measured Quarterly**\nBrand health isn't just awareness. Track: unaided recall, net promoter score, share of voice, and search volume growth. What gets measured gets managed.",
     author: "Neha Kapoor",
     tags: ["Branding", "Strategy", "Leadership"],
     readTime: "10 min read",
@@ -220,11 +251,12 @@ const CATEGORIES = [
   "AI Marketing",
 ];
 
-function backendToDisplay(post: BackendPost): BlogPost {
+export function backendToDisplay(post: BackendPost): BlogPost {
   return {
     id: post.id,
     title: post.title,
     excerpt: post.excerpt || post.content.slice(0, 200),
+    content: post.content,
     author: post.author || "BrandHype Team",
     tags: post.tags
       ? post.tags
@@ -239,19 +271,27 @@ function backendToDisplay(post: BackendPost): BlogPost {
   };
 }
 
+export { SAMPLE_POSTS };
+export type { BlogPost };
+
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
-function FeaturedHero({
-  post,
-  onClose,
-}: { post: BlogPost; onClose: () => void }) {
+function FeaturedHero({ post }: { post: BlogPost }) {
   const cfg = getCatConfig(post.category);
+  const slug = toSlug(post.title);
+
+  function handleClick() {
+    navigateTo(`/blog/${slug}`);
+  }
+
   return (
-    <div
-      className="relative w-full overflow-hidden rounded-2xl mb-8 cursor-pointer group min-h-[400px] sm:min-h-[500px] flex items-end"
+    <button
+      type="button"
+      className="relative w-full overflow-hidden rounded-2xl mb-8 cursor-pointer group min-h-[400px] sm:min-h-[500px] flex items-end text-left"
       data-ocid="blog.featured_card"
+      onClick={handleClick}
+      aria-label={`Read featured article: ${post.title}`}
     >
-      {/* Background: image or gradient */}
       {post.featuredImage ? (
         <img
           src={post.featuredImage}
@@ -262,7 +302,7 @@ function FeaturedHero({
         <div
           className="absolute inset-0"
           style={{
-            background: `linear-gradient(135deg, ${cfg.gradient.replace("from-[", "").replace("]/60", "").replace(" to-[", ", ").replace("]/80", "")})`,
+            background: `linear-gradient(135deg, ${cfg.color}33, ${cfg.color}11)`,
           }}
         >
           <div
@@ -273,13 +313,10 @@ function FeaturedHero({
             className="absolute inset-0"
             style={{ background: "rgba(8,8,8,0.3)" }}
           />
-          {/* Pattern overlay */}
           <div className="absolute inset-0 dot-pattern opacity-20" />
         </div>
       )}
-      {/* Dark overlay for text legibility */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#080808] via-[#080808]/60 to-transparent" />
-      {/* Content */}
       <div className="relative z-10 p-6 sm:p-10 w-full">
         <div className="flex flex-wrap items-center gap-2 mb-3">
           <span
@@ -322,7 +359,10 @@ function FeaturedHero({
         </div>
         <button
           type="button"
-          onClick={onClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            navigateTo(`/blog/${slug}`);
+          }}
           className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-bold text-white transition-all duration-300 group-hover:gap-3"
           style={{
             background: "linear-gradient(135deg, #0066FF, #9B30FF)",
@@ -333,7 +373,7 @@ function FeaturedHero({
           Read Article <ArrowRight className="w-4 h-4" />
         </button>
       </div>
-    </div>
+    </button>
   );
 }
 
@@ -341,13 +381,21 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
   const cfg = getCatConfig(post.category);
   const fallbackGradient =
     FALLBACK_GRADIENTS[index % FALLBACK_GRADIENTS.length];
+  const slug = toSlug(post.title);
+
+  function handleClick() {
+    navigateTo(`/blog/${slug}`);
+  }
+
   return (
-    <article
-      className="group rounded-2xl border border-white/8 overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 flex flex-col"
+    <button
+      type="button"
+      className="group rounded-2xl border border-white/8 overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 flex flex-col text-left w-full"
       style={{ background: "rgba(255,255,255,0.025)" }}
       data-ocid={`blog.article.${index + 1}`}
+      onClick={handleClick}
+      aria-label={`Read article: ${post.title}`}
     >
-      {/* Image / gradient hero */}
       <div className="aspect-video relative overflow-hidden flex-shrink-0">
         {post.featuredImage ? (
           <img
@@ -369,7 +417,6 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
             </span>
           </div>
         )}
-        {/* Category badge over image */}
         <div className="absolute top-3 left-3">
           <span
             className="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wide backdrop-blur-sm"
@@ -382,7 +429,6 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
             {post.category}
           </span>
         </div>
-        {/* Top accent line */}
         <div
           className="absolute top-0 left-0 right-0 h-0.5 opacity-0 group-hover:opacity-100 transition-all duration-300"
           style={{
@@ -391,7 +437,6 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
         />
       </div>
 
-      {/* Body */}
       <div className="p-5 flex flex-col flex-1">
         <h3
           className="font-display font-bold text-base leading-snug mb-2 line-clamp-2 transition-colors duration-200 group-hover:text-[#0066FF]"
@@ -402,7 +447,6 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
         <p className="text-white/40 text-sm leading-relaxed line-clamp-2 mb-4 flex-1">
           {post.excerpt}
         </p>
-        {/* Footer row */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-white/5">
           <div className="flex items-center gap-2 min-w-0">
             <div
@@ -425,7 +469,7 @@ function ArticleCard({ post, index }: { post: BlogPost; index: number }) {
           </div>
         </div>
       </div>
-    </article>
+    </button>
   );
 }
 
@@ -467,10 +511,12 @@ function Sidebar({
           {topStories.map((post, i) => {
             const cfg = getCatConfig(post.category);
             return (
-              <div
+              <button
                 key={post.id}
-                className="flex items-start gap-3 group cursor-pointer"
+                type="button"
+                className="flex items-start gap-3 group cursor-pointer text-left w-full"
                 data-ocid={`blog.top_story.${i + 1}`}
+                onClick={() => navigateTo(`/blog/${toSlug(post.title)}`)}
               >
                 <span
                   className="font-display font-black text-xl leading-none flex-shrink-0 w-6 text-center"
@@ -494,7 +540,7 @@ function Sidebar({
                     </span>
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -516,10 +562,12 @@ function Sidebar({
           {trending.map((post, i) => {
             const cfg = getCatConfig(post.category);
             return (
-              <div
+              <button
                 key={post.id}
-                className="flex items-start gap-3 group cursor-pointer"
+                type="button"
+                className="flex items-start gap-3 group cursor-pointer text-left w-full"
                 data-ocid={`blog.trending.${i + 1}`}
+                onClick={() => navigateTo(`/blog/${toSlug(post.title)}`)}
               >
                 <span
                   className="font-display font-black text-xl leading-none flex-shrink-0 w-6 text-center"
@@ -544,7 +592,7 @@ function Sidebar({
                     </span>
                   </div>
                 </div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -670,16 +718,11 @@ function Sidebar({
 
 // ─── Main Blog Component ──────────────────────────────────────────────────────
 
-interface BlogProps {
-  onClose: () => void;
-}
-
-export default function Blog({ onClose }: BlogProps) {
+export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
   const [posts, setPosts] = useState<BlogPost[]>(SAMPLE_POSTS);
-  const overlayRef = useRef<HTMLDivElement>(null);
   const categoryBarRef = useRef<HTMLDivElement>(null);
 
   // Load posts from localStorage (written by Admin)
@@ -696,15 +739,6 @@ export default function Blog({ onClose }: BlogProps) {
     }
   }, []);
 
-  // Close on Escape key
-  useEffect(() => {
-    const handleKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [onClose]);
-
   const featured = posts.find((p) => p.featured) ?? posts[0];
 
   const filtered =
@@ -712,7 +746,6 @@ export default function Blog({ onClose }: BlogProps) {
       ? posts
       : posts.filter((p) => p.category === activeCategory);
 
-  // Main grid excludes the featured post when showing All
   const gridPosts =
     activeCategory === "All"
       ? posts.filter((p) => p.id !== featured?.id)
@@ -723,7 +756,6 @@ export default function Blog({ onClose }: BlogProps) {
     if (email.trim()) setSubscribed(true);
   };
 
-  // Derive available categories from actual posts
   const availableCategories = [
     "All",
     ...Array.from(new Set(posts.map((p) => p.category))),
@@ -734,11 +766,9 @@ export default function Blog({ onClose }: BlogProps) {
 
   return (
     <div
-      ref={overlayRef}
-      className="fixed inset-0 z-[100] overflow-y-auto"
+      className="min-h-screen"
       style={{ background: "#080808" }}
       data-ocid="blog.page"
-      aria-label="Blog"
     >
       {/* Ambient background */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -757,41 +787,8 @@ export default function Blog({ onClose }: BlogProps) {
         <div className="absolute inset-0 dot-pattern opacity-15" />
       </div>
 
-      {/* ── Sticky Header ── */}
-      <div
-        className="sticky top-0 z-20 backdrop-blur-xl border-b border-white/5"
-        style={{ background: "rgba(8,8,8,0.92)" }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-3">
-              {/* Increased blog header logo: h-12 */}
-              <img
-                src="/assets/images/brandhype-logo-new.png"
-                alt="BrandHype Solutions"
-                className="h-12 w-auto object-contain max-w-[180px]"
-              />
-              <span className="text-white/20 text-sm hidden sm:block">|</span>
-              <span className="font-display font-bold text-white/70 text-sm tracking-wide hidden sm:block">
-                Insights
-              </span>
-            </div>
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex items-center gap-2 px-4 py-2 rounded-full text-white/60 hover:text-white border border-white/10 hover:border-white/25 text-sm transition-smooth"
-              data-ocid="blog.close_button"
-              aria-label="Close blog"
-            >
-              <X className="w-4 h-4" />
-              <span className="hidden sm:inline">Back to Site</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* ── Page Content ── */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-24">
+      {/* Page Content — padded top for navbar */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-24">
         {/* Page heading */}
         <div className="mb-6" data-ocid="blog.hero_section">
           <h1
@@ -815,10 +812,10 @@ export default function Blog({ onClose }: BlogProps) {
           </p>
         </div>
 
-        {/* ── Featured Hero Article ── */}
-        {featured && <FeaturedHero post={featured} onClose={onClose} />}
+        {/* Featured Hero Article */}
+        {featured && <FeaturedHero post={featured} />}
 
-        {/* ── Sticky Category Filter Bar ── */}
+        {/* Sticky Category Filter Bar */}
         <div
           className="sticky top-16 z-10 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 mb-6"
           style={{
@@ -851,9 +848,8 @@ export default function Blog({ onClose }: BlogProps) {
                         }
                       : {
                           background: "rgba(255,255,255,0.05)",
-                          color: isActive
-                            ? "#fff"
-                            : cat === "All"
+                          color:
+                            cat === "All"
                               ? "rgba(255,255,255,0.55)"
                               : cfg.color,
                           border: `1px solid ${cat === "All" ? "rgba(255,255,255,0.1)" : cfg.border}`,
@@ -868,7 +864,7 @@ export default function Blog({ onClose }: BlogProps) {
           </div>
         </div>
 
-        {/* ── Main 3-column layout ── */}
+        {/* Main 3-column layout */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left+Center — articles */}
           <div className="lg:col-span-2">

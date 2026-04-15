@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import Blog from "@/pages/Blog";
 import type { NavLink } from "@/types";
 import { Menu, X, Zap } from "lucide-react";
 import { useCallback, useEffect, useState } from "react";
@@ -16,11 +15,27 @@ const NAV_LINKS: NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
+function navigateTo(path: string) {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new Event("routechange"));
+}
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [scrolled, setScrolled] = useState(false);
-  const [blogOpen, setBlogOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+
+  // Sync path on route change
+  useEffect(() => {
+    const update = () => setCurrentPath(window.location.pathname);
+    window.addEventListener("routechange", update);
+    window.addEventListener("popstate", update);
+    return () => {
+      window.removeEventListener("routechange", update);
+      window.removeEventListener("popstate", update);
+    };
+  }, []);
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 20);
@@ -50,27 +65,46 @@ export default function Navbar() {
   }, [handleScroll]);
 
   useEffect(() => {
-    document.body.style.overflow = blogOpen || isOpen ? "hidden" : "";
+    document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [blogOpen, isOpen]);
+  }, [isOpen]);
 
-  const scrollTo = useCallback((href: string) => {
-    setIsOpen(false);
-    const el = document.getElementById(href.replace("#", ""));
-    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, []);
+  const scrollTo = useCallback(
+    (href: string) => {
+      setIsOpen(false);
+      // If not on main page, navigate home first then scroll
+      if (currentPath !== "/") {
+        navigateTo("/");
+        setTimeout(() => {
+          const el = document.getElementById(href.replace("#", ""));
+          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 100);
+      } else {
+        const el = document.getElementById(href.replace("#", ""));
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    },
+    [currentPath],
+  );
 
   const handleOverlayKey = useCallback((e: React.KeyboardEvent) => {
     if (e.key === "Escape" || e.key === "Enter") setIsOpen(false);
   }, []);
 
+  const handleBlogClick = useCallback(() => {
+    setIsOpen(false);
+    navigateTo("/blog");
+  }, []);
+
+  const isBlogActive = currentPath.startsWith("/blog");
+
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
+          scrolled || isBlogActive
             ? "bg-[rgba(10,10,10,0.97)] backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
             : "bg-transparent"
         }`}
@@ -78,10 +112,17 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Logo — increased size */}
+            {/* Logo */}
             <button
               type="button"
-              onClick={() => scrollTo("#hero")}
+              onClick={() => {
+                setIsOpen(false);
+                if (currentPath !== "/") {
+                  navigateTo("/");
+                } else {
+                  scrollTo("#hero");
+                }
+              }}
               className="flex items-center gap-2 group flex-shrink-0 min-h-[44px] min-w-[44px]"
               data-ocid="navbar.logo_link"
               aria-label="BrandHype Solutions home"
@@ -119,7 +160,9 @@ export default function Navbar() {
               aria-label="Main navigation"
             >
               {NAV_LINKS.map((link) => {
-                const isActive = activeSection === link.href.replace("#", "");
+                const isActive =
+                  currentPath === "/" &&
+                  activeSection === link.href.replace("#", "");
                 return (
                   <button
                     type="button"
@@ -128,7 +171,7 @@ export default function Navbar() {
                     className={`px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-smooth relative group ${
                       isActive ? "text-white" : "text-white/60 hover:text-white"
                     }`}
-                    data-ocid={`navbar.${link.label.toLowerCase()}_link`}
+                    data-ocid={`navbar.${link.label.toLowerCase().replace(/\s+/g, "_")}_link`}
                     style={{ touchAction: "manipulation" }}
                   >
                     {link.label}
@@ -141,12 +184,17 @@ export default function Navbar() {
               })}
               <button
                 type="button"
-                onClick={() => setBlogOpen(true)}
-                className="px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-smooth relative group text-white/60 hover:text-white"
+                onClick={handleBlogClick}
+                className={`px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-smooth relative group ${
+                  isBlogActive ? "text-white" : "text-white/60 hover:text-white"
+                }`}
                 data-ocid="navbar.blog_link"
                 style={{ touchAction: "manipulation" }}
               >
                 Blog
+                {isBlogActive && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-primary rounded-full" />
+                )}
                 <span className="absolute inset-0 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-smooth" />
               </button>
             </nav>
@@ -205,7 +253,7 @@ export default function Navbar() {
         data-ocid="navbar.mobile_menu"
         aria-label="Mobile navigation"
       >
-        {/* Sidebar header — larger logo */}
+        {/* Sidebar header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 min-h-[68px]">
           <img
             src="/assets/images/brandhype-logo-new.png"
@@ -227,7 +275,9 @@ export default function Navbar() {
         {/* Mobile nav links */}
         <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
           {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.replace("#", "");
+            const isActive =
+              currentPath === "/" &&
+              activeSection === link.href.replace("#", "");
             return (
               <button
                 type="button"
@@ -238,7 +288,7 @@ export default function Navbar() {
                     ? "text-white bg-primary/20 border border-primary/30"
                     : "text-white/60 hover:text-white hover:bg-white/5"
                 }`}
-                data-ocid={`navbar.mobile_${link.label.toLowerCase()}_link`}
+                data-ocid={`navbar.mobile_${link.label.toLowerCase().replace(/\s+/g, "_")}_link`}
                 style={{ touchAction: "manipulation" }}
               >
                 {link.label}
@@ -247,11 +297,12 @@ export default function Navbar() {
           })}
           <button
             type="button"
-            onClick={() => {
-              setIsOpen(false);
-              setBlogOpen(true);
-            }}
-            className="w-full flex items-center px-4 min-h-[52px] rounded-xl text-sm font-medium transition-smooth text-white/60 hover:text-white hover:bg-white/5"
+            onClick={handleBlogClick}
+            className={`w-full flex items-center px-4 min-h-[52px] rounded-xl text-sm font-medium transition-smooth ${
+              isBlogActive
+                ? "text-white bg-primary/20 border border-primary/30"
+                : "text-white/60 hover:text-white hover:bg-white/5"
+            }`}
             data-ocid="navbar.mobile_blog_link"
             style={{ touchAction: "manipulation" }}
           >
@@ -273,9 +324,6 @@ export default function Navbar() {
           </Button>
         </div>
       </aside>
-
-      {/* Blog Overlay */}
-      {blogOpen && <Blog onClose={() => setBlogOpen(false)} />}
     </>
   );
 }

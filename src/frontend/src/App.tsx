@@ -14,6 +14,8 @@ const Process = lazy(() => import("@/pages/Process"));
 const LeadMagnet = lazy(() => import("@/pages/LeadMagnet"));
 const Contact = lazy(() => import("@/pages/Contact"));
 const WhatsAppButton = lazy(() => import("@/components/WhatsAppButton"));
+const Blog = lazy(() => import("@/pages/Blog"));
+const BlogPost = lazy(() => import("@/pages/BlogPost"));
 
 function SectionLoader() {
   return (
@@ -23,8 +25,24 @@ function SectionLoader() {
   );
 }
 
+function getRoute() {
+  return window.location.pathname;
+}
+
 export default function App() {
   const [adminOpen, setAdminOpen] = useState(false);
+  const [pathname, setPathname] = useState(getRoute);
+
+  // Listen for custom routechange + popstate to update pathname
+  useEffect(() => {
+    const update = () => setPathname(getRoute());
+    window.addEventListener("routechange", update);
+    window.addEventListener("popstate", update);
+    return () => {
+      window.removeEventListener("routechange", update);
+      window.removeEventListener("popstate", update);
+    };
+  }, []);
 
   // Open admin panel when URL hash is #admin
   useEffect(() => {
@@ -48,7 +66,6 @@ export default function App() {
 
   const handleAdminClose = () => {
     setAdminOpen(false);
-    // Clear the hash without page scroll
     if (window.location.hash === "#admin") {
       history.replaceState(
         null,
@@ -58,6 +75,39 @@ export default function App() {
     }
   };
 
+  // Route: /blog/[slug] → BlogPost detail
+  if (pathname.startsWith("/blog/")) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-foreground overflow-x-hidden">
+        <Navbar />
+        <Suspense fallback={<SectionLoader />}>
+          <BlogPost />
+        </Suspense>
+        <Suspense fallback={null}>
+          <WhatsAppButton />
+        </Suspense>
+        {adminOpen && <Admin onClose={handleAdminClose} />}
+      </div>
+    );
+  }
+
+  // Route: /blog → Blog listing page
+  if (pathname === "/blog") {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-foreground overflow-x-hidden">
+        <Navbar />
+        <Suspense fallback={<SectionLoader />}>
+          <Blog />
+        </Suspense>
+        <Suspense fallback={null}>
+          <WhatsAppButton />
+        </Suspense>
+        {adminOpen && <Admin onClose={handleAdminClose} />}
+      </div>
+    );
+  }
+
+  // Route: / → Main landing page
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-foreground overflow-x-hidden">
       <Navbar />
@@ -97,8 +147,6 @@ export default function App() {
       <Suspense fallback={null}>
         <WhatsAppButton />
       </Suspense>
-
-      {/* Admin overlay */}
       {adminOpen && <Admin onClose={handleAdminClose} />}
     </div>
   );
