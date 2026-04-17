@@ -16,6 +16,11 @@ const Contact = lazy(() => import("@/pages/Contact"));
 const WhatsAppButton = lazy(() => import("@/components/WhatsAppButton"));
 const Blog = lazy(() => import("@/pages/Blog"));
 const BlogPost = lazy(() => import("@/pages/BlogPost"));
+const ServiceSEO = lazy(() => import("@/pages/ServiceSEO"));
+const ServiceSocialMedia = lazy(() => import("@/pages/ServiceSocialMedia"));
+const ServicePerformance = lazy(() => import("@/pages/ServicePerformance"));
+const ServiceBrandStrategy = lazy(() => import("@/pages/ServiceBrandStrategy"));
+const ServiceLinkedIn = lazy(() => import("@/pages/ServiceLinkedIn"));
 
 function SectionLoader() {
   return (
@@ -102,6 +107,47 @@ export default function App() {
         <Suspense fallback={null}>
           <WhatsAppButton />
         </Suspense>
+        {adminOpen && <Admin onClose={handleAdminClose} />}
+      </div>
+    );
+  }
+
+  // Service landing pages
+  const SERVICE_ROUTES: Record<string, React.ReactNode> = {
+    "/seo-services-india": (
+      <Suspense fallback={<SectionLoader />}>
+        <ServiceSEO />
+      </Suspense>
+    ),
+    "/social-media-marketing-india": (
+      <Suspense fallback={<SectionLoader />}>
+        <ServiceSocialMedia />
+      </Suspense>
+    ),
+    "/performance-marketing-india": (
+      <Suspense fallback={<SectionLoader />}>
+        <ServicePerformance />
+      </Suspense>
+    ),
+    "/brand-strategy-india": (
+      <Suspense fallback={<SectionLoader />}>
+        <ServiceBrandStrategy />
+      </Suspense>
+    ),
+    "/linkedin-marketing-india": (
+      <Suspense fallback={<SectionLoader />}>
+        <ServiceLinkedIn />
+      </Suspense>
+    ),
+  };
+
+  if (pathname in SERVICE_ROUTES) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] text-foreground overflow-x-hidden">
+        <Suspense fallback={null}>
+          <WhatsAppButton />
+        </Suspense>
+        {SERVICE_ROUTES[pathname]}
         {adminOpen && <Admin onClose={handleAdminClose} />}
       </div>
     );

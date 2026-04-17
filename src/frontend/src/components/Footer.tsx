@@ -8,15 +8,25 @@ import {
   Zap,
 } from "lucide-react";
 
-const SERVICES = [
-  "Influencer Marketing",
-  "Performance Marketing",
-  "Digital Marketing",
-  "Brand Strategy",
-  "Content Creation",
-  "SEO & SEM",
-  "Social Media Marketing",
-  "Campaign Analytics",
+function navigateTo(path: string) {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new Event("routechange"));
+}
+
+interface ServiceItem {
+  label: string;
+  path?: string;
+}
+
+const SERVICES: ServiceItem[] = [
+  { label: "SEO Services India", path: "/seo-services-india" },
+  { label: "Social Media Marketing", path: "/social-media-marketing-india" },
+  { label: "Performance Marketing", path: "/performance-marketing-india" },
+  { label: "Brand Strategy", path: "/brand-strategy-india" },
+  { label: "LinkedIn Marketing", path: "/linkedin-marketing-india" },
+  { label: "Influencer Marketing" },
+  { label: "Content Creation" },
+  { label: "Campaign Analytics" },
 ];
 
 const SOCIAL_LINKS = [
@@ -129,17 +139,30 @@ export default function Footer({ onAdminClick }: FooterProps) {
             </h3>
             <ul className="space-y-1.5 sm:space-y-2.5">
               {SERVICES.map((service) => (
-                <li key={service}>
-                  <button
-                    type="button"
-                    onClick={() => scrollTo("services")}
-                    className="text-white/50 hover:text-white text-sm transition-smooth flex items-center gap-2 group text-left min-h-[36px] sm:min-h-0"
-                    data-ocid={`footer.service_${service.toLowerCase().replace(/[&\s]+/g, "_")}_link`}
-                    style={{ touchAction: "manipulation" }}
-                  >
-                    <span className="w-1 h-1 rounded-full bg-primary/60 group-hover:bg-primary group-hover:scale-125 transition-smooth flex-shrink-0" />
-                    {service}
-                  </button>
+                <li key={service.label}>
+                  {service.path ? (
+                    <button
+                      type="button"
+                      onClick={() => navigateTo(service.path!)}
+                      className="text-white/50 hover:text-white text-sm transition-smooth flex items-center gap-2 group text-left min-h-[36px] sm:min-h-0"
+                      data-ocid={`footer.service_${service.label.toLowerCase().replace(/[&\s]+/g, "_")}_link`}
+                      style={{ touchAction: "manipulation" }}
+                    >
+                      <span className="w-1 h-1 rounded-full bg-primary/60 group-hover:bg-primary group-hover:scale-125 transition-smooth flex-shrink-0" />
+                      {service.label}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => scrollTo("services")}
+                      className="text-white/50 hover:text-white text-sm transition-smooth flex items-center gap-2 group text-left min-h-[36px] sm:min-h-0"
+                      data-ocid={`footer.service_${service.label.toLowerCase().replace(/[&\s]+/g, "_")}_link`}
+                      style={{ touchAction: "manipulation" }}
+                    >
+                      <span className="w-1 h-1 rounded-full bg-primary/60 group-hover:bg-primary group-hover:scale-125 transition-smooth flex-shrink-0" />
+                      {service.label}
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

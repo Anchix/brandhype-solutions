@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-const values = ["Innovation", "Integrity", "Transparency"];
-
 function OrbitSphere() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -68,7 +66,6 @@ function OrbitSphere() {
               }}
             />
           ))}
-          {/* Core orb */}
           <div
             style={{
               position: "absolute",
@@ -90,10 +87,70 @@ function OrbitSphere() {
   );
 }
 
+function navigateTo(path: string) {
+  window.history.pushState({}, "", path);
+  window.dispatchEvent(new Event("routechange"));
+}
+
+const SERVICE_LINKS = [
+  { label: "SEO Services in India", path: "/seo-services-india" },
+  { label: "Social Media Marketing", path: "/social-media-marketing-india" },
+  {
+    label: "Performance Marketing (Google, Meta, LinkedIn Ads)",
+    path: "/performance-marketing-india",
+  },
+  { label: "Brand Strategy & Positioning", path: "/brand-strategy-india" },
+  {
+    label: "LinkedIn Marketing & Lead Generation",
+    path: "/linkedin-marketing-india",
+  },
+  { label: "Content Marketing", path: null },
+];
+
+const BELIEFS = [
+  {
+    icon: "📊",
+    text: "Marketing should be accountable. Every activity should connect to a business metric.",
+  },
+  {
+    icon: "🇮🇳",
+    text: "India is not a single market. Our strategies respect regional, cultural, and behavioral nuance.",
+  },
+  {
+    icon: "⚡",
+    text: "Organic and paid are not competitors — they're the two engines of every durable growth system.",
+  },
+  {
+    icon: "🔍",
+    text: "Transparency is not optional. You should know exactly what we're doing and why at all times.",
+  },
+  {
+    icon: "🤝",
+    text: "Relationships over retainers. We win when you win. That's how we measure success.",
+  },
+];
+
+const CLIENTS = [
+  "Lenskart",
+  "Unstop",
+  "Swiggy",
+  "Arata",
+  "Solura Cosmetic",
+  "Snitch",
+];
+
 export default function About() {
+  function scrollToContact() {
+    const el = document.getElementById("contact");
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
-    <section id="about" className="section-padding relative overflow-hidden">
-      <div className="absolute inset-0 bg-[#0a0a0a]" />
+    <section
+      id="about"
+      className="relative overflow-hidden"
+      style={{ background: "#0a0a0a" }}
+    >
       <div className="absolute inset-0 dot-pattern opacity-20" />
       <div
         className="absolute top-0 right-0 w-2/3 h-full"
@@ -103,9 +160,10 @@ export default function About() {
         }}
       />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left — 3D Sphere (hidden on very small screens, shown from sm) */}
+      {/* ── Hero intro ── */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 section-padding">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center mb-20 lg:mb-28">
+          {/* Left — 3D Sphere */}
           <div
             className="flex items-center justify-center order-2 lg:order-1 hidden sm:flex"
             data-ocid="about.visual"
@@ -127,32 +185,34 @@ export default function About() {
             <span className="inline-block text-sm font-semibold tracking-widest uppercase mb-4 accent-blue font-body">
               About Us
             </span>
-            <h2 className="section-heading text-foreground mb-6">
-              Strategic Partners,{" "}
+            <h1 className="section-heading text-foreground mb-6">
+              We Are BrandHype Solutions —{" "}
               <span className="gradient-text-blue-purple">
-                Not Just Vendors
+                India&rsquo;s Growth Partner for Bold Brands
               </span>
-            </h2>
+            </h1>
             <p
               className="font-body text-sm sm:text-base leading-relaxed mb-4"
               style={{ color: "rgba(255,255,255,0.7)" }}
             >
               BrandHype Solutions is a full-service digital marketing agency
-              based in Pune, India. We transform businesses into well-recognized
-              brands through innovative, data-driven marketing strategies.
+              based in Mumbai, India. We work with D2C brands, SaaS companies,
+              and consumer businesses across India that are serious about
+              building organic and paid growth channels that last.
             </p>
             <p
               className="font-body text-sm sm:text-base leading-relaxed mb-8"
               style={{ color: "rgba(255,255,255,0.7)" }}
             >
-              Our campaigns are never cookie-cutter. Every brief gets a bespoke
-              strategy — from deep brand discovery to precision performance
-              marketing.
+              We started because we kept seeing the same problem: brands with
+              great products getting outranked, outspent, and out-marketed by
+              competitors with mediocre offerings but better digital strategy.
+              We exist to fix that.
             </p>
 
             {/* AI Callout */}
             <div
-              className="glass-card p-5 sm:p-6 mb-8 relative overflow-hidden"
+              className="glass-card p-5 sm:p-6 relative overflow-hidden"
               style={{ borderLeft: "4px solid #0066FF" }}
               data-ocid="about.ai_callout"
             >
@@ -183,35 +243,340 @@ export default function About() {
                 machine precision.
               </p>
             </div>
+          </div>
+        </div>
 
-            {/* Values */}
-            <div className="flex flex-wrap gap-3" data-ocid="about.values">
-              {values.map((value) => (
-                <span
-                  key={value}
-                  className="px-4 py-2 rounded-full text-sm font-semibold font-body transition-smooth cursor-default"
+        {/* ── What We Believe ── */}
+        <div className="mb-20 lg:mb-28" data-ocid="about.beliefs_section">
+          <h2 className="section-heading text-center mb-3">
+            What We <span className="gradient-text-blue-purple">Believe</span>
+          </h2>
+          <p
+            className="text-center font-body text-sm mb-10"
+            style={{ color: "rgba(255,255,255,0.45)" }}
+          >
+            The principles that guide every strategy, every campaign, every
+            conversation.
+          </p>
+          <div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+            data-ocid="about.beliefs_list"
+          >
+            {BELIEFS.map((belief, beliefIdx) => (
+              <div
+                key={belief.text.slice(0, 20)}
+                className="glass-card p-6 rounded-2xl flex gap-4 items-start transition-all duration-300"
+                style={{ border: "1px solid rgba(255,255,255,0.07)" }}
+                data-ocid={`about.belief.${beliefIdx + 1}`}
+              >
+                <span className="text-2xl flex-shrink-0 mt-0.5">
+                  {belief.icon}
+                </span>
+                <p
+                  className="font-body text-sm leading-relaxed"
+                  style={{ color: "rgba(255,255,255,0.72)" }}
+                >
+                  {belief.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ── Our Team ── */}
+        <div className="mb-20 lg:mb-28" data-ocid="about.team_section">
+          <h2 className="section-heading mb-3">
+            Our <span className="gradient-text-blue-purple">Team</span>
+          </h2>
+          <p
+            className="font-body text-sm sm:text-base leading-relaxed mb-8"
+            style={{ color: "rgba(255,255,255,0.7)" }}
+          >
+            BrandHype Solutions is led by{" "}
+            <span style={{ color: "rgba(255,255,255,0.9)", fontWeight: 600 }}>
+              Anurag Kumar
+            </span>
+            , with a team of specialists across SEO, performance marketing,
+            social media, content, and brand strategy. We are a boutique agency
+            by design — small enough to give every client senior attention,
+            experienced enough to handle complex, multi-channel briefs.
+          </p>
+          {/* Founder Card */}
+          <div
+            className="rounded-2xl p-6 sm:p-8 relative overflow-hidden"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(0,102,255,0.08) 0%, rgba(155,48,255,0.06) 100%)",
+              border: "1px solid rgba(0,102,255,0.25)",
+              boxShadow: "0 4px 32px rgba(0,102,255,0.08)",
+            }}
+            data-ocid="about.founder_card"
+          >
+            {/* subtle glow top-right */}
+            <div
+              className="absolute top-0 right-0 w-40 h-40 rounded-full blur-[60px] pointer-events-none"
+              style={{ background: "rgba(155,48,255,0.12)" }}
+            />
+            <div className="relative flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-8">
+              {/* Photo */}
+              <div className="flex-shrink-0 relative">
+                <div
+                  className="absolute -inset-1 rounded-full blur-md pointer-events-none"
                   style={{
-                    background: "rgba(255,255,255,0.05)",
-                    border: "1px solid rgba(255,255,255,0.15)",
-                    color: "rgba(255,255,255,0.85)",
-                    touchAction: "manipulation",
+                    background:
+                      "linear-gradient(135deg, rgba(0,102,255,0.5), rgba(155,48,255,0.4))",
                   }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget as HTMLSpanElement;
-                    el.style.borderColor = "#9B30FF80";
-                    el.style.boxShadow = "0 0 12px #9B30FF40";
+                />
+                <img
+                  src="/assets/founder.jpg"
+                  alt="Anurag Kumar - Founder, BrandHype Solutions"
+                  className="relative rounded-full object-cover flex-shrink-0"
+                  style={{
+                    width: 128,
+                    height: 128,
+                    border: "3px solid rgba(0,102,255,0.5)",
+                    boxShadow:
+                      "0 0 24px rgba(0,102,255,0.35), 0 0 48px rgba(155,48,255,0.15)",
                   }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget as HTMLSpanElement;
-                    el.style.borderColor = "rgba(255,255,255,0.15)";
-                    el.style.boxShadow = "none";
+                />
+                {/* online indicator */}
+                <span
+                  className="absolute bottom-2 right-2 w-4 h-4 rounded-full border-2"
+                  style={{
+                    background: "#00d084",
+                    borderColor: "#0a0a0a",
+                    boxShadow: "0 0 8px #00d084aa",
+                  }}
+                />
+              </div>
+              {/* Info */}
+              <div className="flex-1 text-center sm:text-left">
+                <h3
+                  className="font-display font-bold text-xl sm:text-2xl mb-1"
+                  style={{ color: "#ffffff" }}
+                >
+                  Anurag Kumar
+                </h3>
+                <p
+                  className="font-body text-sm font-medium mb-1"
+                  style={{
+                    background: "linear-gradient(90deg, #0066FF, #9B30FF)",
+                    WebkitBackgroundClip: "text",
+                    WebkitTextFillColor: "transparent",
                   }}
                 >
-                  {value}
-                </span>
-              ))}
+                  Founder &amp; CEO, BrandHype Solutions
+                </p>
+                <p
+                  className="font-body text-xs mb-4"
+                  style={{ color: "rgba(255,255,255,0.4)" }}
+                >
+                  Mumbai, India · Performance Marketing · Brand Growth
+                </p>
+                <p
+                  className="font-body text-sm leading-relaxed mb-5"
+                  style={{ color: "rgba(255,255,255,0.68)" }}
+                >
+                  With a passion for growth marketing and brand building, Anurag
+                  leads BrandHype Solutions in helping India&apos;s boldest
+                  brands scale through performance marketing and viral content
+                  systems. He combines data-driven strategy with deep creative
+                  intuition to turn ambitious brands into category leaders.
+                </p>
+                {/* Tags */}
+                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                  {[
+                    "Performance Marketing",
+                    "Meme Marketing",
+                    "D2C Growth",
+                    "Brand Strategy",
+                  ].map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-full font-body text-xs font-medium"
+                      style={{
+                        background: "rgba(0,102,255,0.12)",
+                        border: "1px solid rgba(0,102,255,0.3)",
+                        color: "rgba(255,255,255,0.75)",
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+
+        {/* ── Our Clients ── */}
+        <div className="mb-20 lg:mb-28" data-ocid="about.clients_section">
+          <h2 className="section-heading mb-3">
+            Our <span className="gradient-text-blue-purple">Clients</span>
+          </h2>
+          <p
+            className="font-body text-sm sm:text-base leading-relaxed mb-6"
+            style={{ color: "rgba(255,255,255,0.7)" }}
+          >
+            We work with brands across Mumbai, Delhi, Bangalore, Hyderabad, and
+            beyond — in industries including D2C, SaaS, fintech, consumer goods,
+            real estate, and professional services.
+          </p>
+          <div
+            className="flex flex-wrap gap-3 mb-4"
+            data-ocid="about.clients_list"
+          >
+            {CLIENTS.map((client) => (
+              <span
+                key={client}
+                className="px-5 py-2.5 rounded-full font-display font-semibold text-sm transition-all duration-200"
+                style={{
+                  background: "rgba(255,255,255,0.05)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  color: "rgba(255,255,255,0.85)",
+                }}
+                onMouseEnter={(e) => {
+                  const el = e.currentTarget as HTMLSpanElement;
+                  el.style.borderColor = "#0066FF80";
+                  el.style.boxShadow = "0 0 12px #0066FF30";
+                  el.style.color = "#fff";
+                }}
+                onMouseLeave={(e) => {
+                  const el = e.currentTarget as HTMLSpanElement;
+                  el.style.borderColor = "rgba(255,255,255,0.15)";
+                  el.style.boxShadow = "none";
+                  el.style.color = "rgba(255,255,255,0.85)";
+                }}
+              >
+                {client}
+              </span>
+            ))}
+          </div>
+          <p
+            className="font-body text-xs italic"
+            style={{ color: "rgba(255,255,255,0.3)" }}
+          >
+            [Add 3–5 client logos or names with permission.]
+          </p>
+        </div>
+
+        {/* ── Why Mumbai ── */}
+        <div
+          className="mb-20 lg:mb-28 rounded-2xl p-8 sm:p-10 relative overflow-hidden"
+          style={{
+            background: "rgba(0,102,255,0.05)",
+            border: "1px solid rgba(0,102,255,0.15)",
+          }}
+          data-ocid="about.mumbai_section"
+        >
+          <div
+            className="absolute top-0 right-0 w-48 h-48 rounded-full blur-[80px] pointer-events-none"
+            style={{ background: "rgba(0,102,255,0.1)" }}
+          />
+          <h2 className="section-heading mb-4 relative">
+            Why <span className="gradient-text-blue-purple">Mumbai?</span>
+          </h2>
+          <p
+            className="font-body text-sm sm:text-base leading-relaxed relative"
+            style={{ color: "rgba(255,255,255,0.7)", maxWidth: "720px" }}
+          >
+            Mumbai is India&apos;s commercial capital — and the right city to
+            understand the pace, the ambition, and the competitive intensity
+            that Indian brands operate in. Our proximity to India&apos;s largest
+            business ecosystem means we understand the market our clients are
+            competing in, not just the algorithms they&apos;re trying to rank
+            on.
+          </p>
+        </div>
+
+        {/* ── Our Services ── */}
+        <div className="mb-16" data-ocid="about.services_section">
+          <h2 className="section-heading mb-3">
+            Our <span className="gradient-text-blue-purple">Services</span>
+          </h2>
+          <p
+            className="font-body text-sm mb-8"
+            style={{ color: "rgba(255,255,255,0.45)" }}
+          >
+            Everything under one roof — no coordination headaches, no gaps
+            between teams.
+          </p>
+          <ul
+            className="flex flex-col gap-3 mb-10"
+            data-ocid="about.services_list"
+          >
+            {SERVICE_LINKS.map((svc, i) => (
+              <li key={svc.label}>
+                {svc.path ? (
+                  <button
+                    type="button"
+                    onClick={() => navigateTo(svc.path!)}
+                    className="flex items-center gap-3 group text-left transition-all duration-200"
+                    data-ocid={`about.service_link.${i + 1}`}
+                    style={{ touchAction: "manipulation" }}
+                  >
+                    <span
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ background: "#0066FF" }}
+                    />
+                    <span
+                      className="font-body text-sm sm:text-base group-hover:text-[#0066FF] transition-colors duration-200"
+                      style={{ color: "rgba(255,255,255,0.75)" }}
+                    >
+                      {svc.label}
+                    </span>
+                    <span className="text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-200 text-[#0066FF]">
+                      →
+                    </span>
+                  </button>
+                ) : (
+                  <div className="flex items-center gap-3">
+                    <span
+                      className="w-2 h-2 rounded-full flex-shrink-0"
+                      style={{ background: "rgba(255,255,255,0.3)" }}
+                    />
+                    <span
+                      className="font-body text-sm sm:text-base"
+                      style={{ color: "rgba(255,255,255,0.55)" }}
+                    >
+                      {svc.label}
+                    </span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
+
+          {/* CTA */}
+          <button
+            type="button"
+            onClick={scrollToContact}
+            className="group inline-flex items-center gap-2 min-h-[52px] px-8 py-3.5 rounded-full font-display font-semibold text-sm sm:text-base text-white transition-all duration-300"
+            style={{
+              background: "linear-gradient(135deg, #0066ff 0%, #4d4dff 100%)",
+              boxShadow:
+                "0 0 24px rgba(0,102,255,0.45), 0 4px 20px rgba(0,102,255,0.25)",
+              touchAction: "manipulation",
+            }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow =
+                "0 0 40px rgba(0,102,255,0.7), 0 8px 32px rgba(0,102,255,0.4)";
+              el.style.transform = "translateY(-2px) scale(1.02)";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLButtonElement;
+              el.style.boxShadow =
+                "0 0 24px rgba(0,102,255,0.45), 0 4px 20px rgba(0,102,255,0.25)";
+              el.style.transform = "";
+            }}
+            data-ocid="about.cta_button"
+          >
+            Work With Us — Get a Free Audit
+            <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
+          </button>
         </div>
       </div>
     </section>

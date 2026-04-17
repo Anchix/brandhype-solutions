@@ -235,13 +235,13 @@ export default function Hero() {
                 letterSpacing: "-0.03em",
               }}
             >
-              We Don&rsquo;t Just Market, <br className="hidden sm:block" />
-              We{" "}
+              India&rsquo;s Growth Partner <br className="hidden sm:block" />
+              for{" "}
               <span
                 className="gradient-text-blue-purple glow-text"
                 style={{ display: "inline-block" }}
               >
-                Scale.
+                Bold Brands.
               </span>
             </h1>
           </FadeUp>
@@ -252,10 +252,10 @@ export default function Hero() {
               className="section-subheading max-w-2xl mx-auto mb-10 text-sm sm:text-lg"
               style={{ color: "rgba(255,255,255,0.62)" }}
             >
-              Full-service digital marketing agency transforming brands from
-              obscure to iconic —{" "}
+              Performance marketing, brand strategy, and social media that
+              actually converts —{" "}
               <span style={{ color: "rgba(255,255,255,0.85)" }}>
-                Pune, India
+                built for Indian D2C, SaaS, and consumer brands.
               </span>
             </p>
           </FadeUp>
@@ -290,7 +290,7 @@ export default function Hero() {
                 }}
               >
                 <span className="relative z-10 flex items-center justify-center gap-2">
-                  Let&rsquo;s Scale Your Brand
+                  Get Your Free Brand Audit
                   <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
@@ -301,7 +301,7 @@ export default function Hero() {
               <button
                 type="button"
                 data-ocid="hero.secondary_button"
-                onClick={() => scrollTo("services")}
+                onClick={() => scrollTo("case-studies")}
                 className="group w-full sm:w-auto min-h-[52px] px-8 py-3.5 rounded-full font-display font-semibold text-sm sm:text-base text-white transition-all duration-300 glass-effect"
                 style={{
                   border: "1px solid rgba(255,255,255,0.22)",
@@ -321,7 +321,7 @@ export default function Hero() {
                 }}
               >
                 <span className="flex items-center justify-center gap-2">
-                  Explore Services
+                  See Our Results
                   <span className="inline-block transition-transform duration-300 group-hover:translate-y-1">
                     ↓
                   </span>
