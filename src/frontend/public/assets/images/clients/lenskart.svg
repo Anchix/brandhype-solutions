@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 64" fill="none">
+  <!-- Glasses icon -->
+  <g transform="translate(10, 12)">
+    <!-- Left lens frame -->
+    <rect x="0" y="6" width="32" height="22" rx="11" fill="none" stroke="#0066FF" stroke-width="3"/>
+    <!-- Right lens frame -->
+    <rect x="44" y="6" width="32" height="22" rx="11" fill="none" stroke="#0066FF" stroke-width="3"/>
+    <!-- Bridge -->
+    <path d="M32 17 Q38 12 44 17" stroke="#0066FF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Left temple -->
+    <line x1="0" y1="17" x2="-10" y2="14" stroke="#0066FF" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Right temple -->
+    <line x1="76" y1="17" x2="86" y2="14" stroke="#0066FF" stroke-width="2.5" stroke-linecap="round"/>
+    <!-- Lens glint left -->
+    <circle cx="12" cy="13" r="2.5" fill="#0066FF" opacity="0.4"/>
+    <!-- Lens glint right -->
+    <circle cx="56" cy="13" r="2.5" fill="#0066FF" opacity="0.4"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="112" y="38" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="800" fill="#0066FF" letter-spacing="1" text-anchor="middle">LENSKART</text>
+  <!-- Tagline dot -->
+  <circle cx="112" cy="50" r="2" fill="#0066FF" opacity="0.5"/>
+</svg>

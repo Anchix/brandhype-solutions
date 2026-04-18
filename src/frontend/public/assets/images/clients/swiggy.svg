@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" fill="none">
+  <!-- Scooter delivery icon -->
+  <g transform="translate(10, 8)">
+    <!-- Delivery bag -->
+    <rect x="8" y="4" width="22" height="18" rx="4" fill="#FC8019"/>
+    <rect x="12" y="1" width="14" height="6" rx="3" fill="#FC8019"/>
+    <!-- Fork/spoon cross on bag -->
+    <line x1="16" y1="8" x2="16" y2="18" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="22" y1="8" x2="22" y2="18" stroke="white" stroke-width="1.8" stroke-linecap="round"/>
+    <line x1="14" y1="12" x2="24" y2="12" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Scooter body -->
+    <path d="M6 26 Q2 22 8 22 L30 22 L36 28 L38 28" stroke="#FC8019" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- Wheels -->
+    <circle cx="10" cy="34" r="5.5" stroke="#FC8019" stroke-width="2.5" fill="none"/>
+    <circle cx="36" cy="34" r="5.5" stroke="#FC8019" stroke-width="2.5" fill="none"/>
+    <circle cx="10" cy="34" r="2" fill="#FC8019"/>
+    <circle cx="36" cy="34" r="2" fill="#FC8019"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="130" y="38" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#FC8019" letter-spacing="0.5" text-anchor="middle">swiggy</text>
+</svg>

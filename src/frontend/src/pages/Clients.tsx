@@ -11,45 +11,42 @@ interface ClientData {
 const clients: ClientData[] = [
   {
     name: "Lenskart",
-    logoUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Lenskart_logo.svg/320px-Lenskart_logo.svg.png",
+    logoUrl: "/assets/images/clients/lenskart.svg",
     color: "#0066FF",
     bg: "rgba(0,102,255,0.12)",
     initial: "L",
   },
   {
     name: "Unstop",
-    logoUrl:
-      "https://d8it4huxumps7.cloudfront.net/uploads/images/unstop/branding-guidelines/unstop-logo.png",
-    color: "#FF6B2B",
-    bg: "rgba(255,107,43,0.12)",
+    logoUrl: "/assets/images/clients/unstop.svg",
+    color: "#6C3DE1",
+    bg: "rgba(108,61,225,0.12)",
     initial: "U",
   },
   {
     name: "Swiggy",
-    logoUrl: "https://logo.svgcdn.com/simple-icons/swiggy-dark.png",
+    logoUrl: "/assets/images/clients/swiggy.svg",
     color: "#FC8019",
     bg: "rgba(252,128,25,0.12)",
     initial: "S",
   },
   {
     name: "Arata",
-    logoUrl:
-      "https://www.arata.in/cdn/shop/files/Arata_Logo_4x_0e27b1b7-c7e4-4a25-ad91-9e28cdff43b1.png",
+    logoUrl: "/assets/images/clients/arata.svg",
     color: "#00C853",
     bg: "rgba(0,200,83,0.12)",
     initial: "A",
   },
   {
     name: "Solura Cosmetic",
-    logoUrl: "",
+    logoUrl: "/assets/images/clients/solura.svg",
     color: "#20BFA9",
     bg: "rgba(32,191,169,0.12)",
     initial: "SC",
   },
   {
     name: "Snitch",
-    logoUrl: "https://cdn.worldvectorlogo.com/logos/snitch-1.svg",
+    logoUrl: "/assets/images/clients/snitch.svg",
     color: "#FF1744",
     bg: "rgba(255,23,68,0.12)",
     initial: "SN",

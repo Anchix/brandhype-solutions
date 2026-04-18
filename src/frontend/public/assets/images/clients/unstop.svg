@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 64" fill="none">
+  <!-- U icon mark with upward arrow -->
+  <g transform="translate(12, 10)">
+    <!-- Circular badge -->
+    <circle cx="22" cy="22" r="20" fill="#6C3DE1" opacity="0.15"/>
+    <circle cx="22" cy="22" r="20" stroke="#6C3DE1" stroke-width="1.5" fill="none"/>
+    <!-- U letter -->
+    <path d="M13 12 L13 24 Q13 32 22 32 Q31 32 31 24 L31 12" stroke="#6C3DE1" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- Upward arrow on top of U -->
+    <path d="M22 10 L22 2 M18 6 L22 2 L26 6" stroke="#FF6B2B" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="123" y="38" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" fill="#6C3DE1" letter-spacing="1" text-anchor="middle">unstop</text>
+  <!-- Orange accent underline -->
+  <rect x="64" y="46" width="118" height="2.5" rx="1.25" fill="#FF6B2B" opacity="0.5"/>
+</svg>

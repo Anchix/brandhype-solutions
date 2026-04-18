@@ -35,7 +35,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "lenskart",
     brand: "Lenskart",
-    logo: "https://companieslogo.com/img/orig/LNSKR.NS-c6a7db2d.png?t=1720244493",
+    logo: "/assets/images/clients/lenskart.svg",
     campaignType: "Meme + Influencer",
     badgeColor: "blue",
     tagline: "108% ROAS Improvement in 45 Days",
@@ -75,7 +75,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "arata",
     brand: "Arata",
-    logo: "https://arata.in/cdn/shop/files/arata_logo.png?v=1689841349",
+    logo: "/assets/images/clients/arata.svg",
     campaignType: "Influencer Marketing",
     badgeColor: "purple",
     tagline: "74% CPL Reduction & 242% Conversion Rate Lift",
@@ -115,7 +115,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "unstop",
     brand: "Unstop",
-    logo: "https://unstop.com/assets/new-images/unstop-logo.svg",
+    logo: "/assets/images/clients/unstop.svg",
     campaignType: "Brand Strategy",
     badgeColor: "gold",
     tagline: "NPS 28→67 & 320% B2B Pipeline Growth",
@@ -155,7 +155,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "swiggy",
     brand: "Swiggy",
-    logo: "https://upload.wikimedia.org/wikipedia/en/thumb/1/12/Swiggy_logo.svg/1200px-Swiggy_logo.svg.png",
+    logo: "/assets/images/clients/swiggy.svg",
     campaignType: "Brand Awareness",
     badgeColor: "blue",
     tagline: "32%→61% Brand Recall Across Tier 2/3 Cities",
@@ -195,7 +195,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "snitch",
     brand: "Snitch",
-    logo: "https://cdn.shopify.com/s/files/1/0625/2047/4841/files/snitch-logo.png?v=1685005246",
+    logo: "/assets/images/clients/snitch.svg",
     campaignType: "Digital Marketing",
     badgeColor: "purple",
     tagline: "ROAS 1.8x→5.4x & ₹4.2 Crore Revenue in 6 Months",
@@ -236,7 +236,7 @@ const CASE_STUDIES: CaseStudy[] = [
   {
     id: "solura",
     brand: "Solura Cosmetic",
-    logo: "https://soluracosmetics.com/cdn/shop/files/Solura_Logo_Final-02.png",
+    logo: "/assets/images/clients/solura.svg",
     campaignType: "Full-Stack Marketing",
     badgeColor: "gold",
     tagline: "520% Revenue Growth & 48K Monthly Organic Visits in 9 Months",
